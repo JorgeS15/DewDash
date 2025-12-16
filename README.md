@@ -1,6 +1,6 @@
 # DewDash - S24 Dew Point Monitor
 
-[![Version](https://img.shields.io/badge/version-1.0.16-blue.svg)](https://github.com/JorgeS15/DewDash)
+[![Version](https://img.shields.io/badge/version-1.0.18-blue.svg)](https://github.com/JorgeS15/DewDash)
 [![Python](https://img.shields.io/badge/python-3.7+-green.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
@@ -8,10 +8,9 @@
 
 Real-time web dashboard for monitoring Banner S24 Dew Point Sensor via DXMR90-X1 Modbus gateway. Features automatic network configuration, bilingual interface (Portuguese/English), and ultra-fast 10Hz data updates.
 
-
 # DewDash Dashboard
 
-<img width="1227" height="869" alt="msedge_d9JI7eRlHv" src="https://github.com/user-attachments/assets/6a14eca5-f2fa-426f-935d-86c79c9ce715" />
+<img width="1227" height="869" alt="DewDash Dashboard Screenshot" src="https://github.com/user-attachments/assets/6a14eca5-f2fa-426f-935d-86c79c9ce715" />
 
 ## ✨ Features
 
@@ -20,6 +19,7 @@ Real-time web dashboard for monitoring Banner S24 Dew Point Sensor via DXMR90-X1
 - 🔧 **Auto Network Config** - Automatically sets PC IP to 192.168.0.2
 - 🔐 **Auto Admin Rights** - Requests administrator privileges automatically
 - 🚀 **Auto Browser Launch** - Opens dashboard when data is ready
+- 🔄 **Auto Browser Close** - Closes browser tab automatically when script stops
 - 📊 **Live Console Display** - Real-time readings in terminal (1Hz)
 - 💻 **Responsive Design** - Works on desktop, tablet, and mobile
 - 🎨 **Modern UI** - Clean, professional interface with color-coded alerts
@@ -143,6 +143,10 @@ The browser will open automatically showing live sensor data!
 http://localhost:5000
 ```
 
+### 4. Stop the Dashboard
+
+Press `Ctrl+C` in the terminal - the browser tab will close automatically!
+
 ## ⚙️ Configuration
 
 ### Default Settings
@@ -224,7 +228,10 @@ Press `Ctrl+C` in the terminal window:
 ```
 ^C
 Shutting down...
+Closing browser tabs...
 ```
+
+The browser tab will **automatically close** after showing a shutdown message!
 
 ## 🎨 Dashboard Overview
 
@@ -261,11 +268,15 @@ Located at the bottom:
 Click the **"English"** or **"Português"** button in top-right corner to switch languages.
 
 **Portuguese (Default):**
+- DewDash
+- Monitor de Ponto de Orvalho S24
 - Humidade Relativa
 - Temperatura
 - Ponto de Orvalho
 
 **English:**
+- DewDash
+- S24 Dew Point Monitor
 - Relative Humidity
 - Temperature
 - Dew Point
@@ -359,6 +370,10 @@ Access from phone/tablet on same network:
 - Manually open: `http://localhost:5000`
 - Check if DXMR90-X1 connection succeeded (browser only opens if connected)
 
+#### Problem: Browser doesn't close when stopping script
+
+**This is normal behavior** - Some browsers prevent JavaScript from closing tabs for security reasons. The dashboard will show a shutdown message instead.
+
 #### Problem: Language won't switch
 
 **Solution:**
@@ -450,7 +465,8 @@ DewDash/
 │
 ├── s24_web_dashboard.py      # Main application (900+ lines)
 ├── README.md                  # This file
-└── requirements.txt           # Python dependencies (optional)
+├── requirements.txt           # Python dependencies
+└── LICENSE                    # MIT License
 ```
 
 ## 📚 DXMR90-X1 Configuration
@@ -494,7 +510,13 @@ Use **Register View Utility** in DXM Configuration Software:
 
 ## 📝 Version History
 
-### v1.0.16 (Current)
+### v1.0.18 (Current)
+- Fixed browser auto-close to only trigger on Ctrl+C (not during normal operation)
+
+### v1.0.17
+- Browser tab automatically closes when terminal is closed
+
+### v1.0.16
 - Updated webpage header: "DewDash" as title, subtitle in Portuguese/English
 - Removed thermometer icon from header
 
@@ -557,7 +579,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 ### Development Setup
 
 ```bash
-git clone https://github.com/yourusername/dewdash.git
+git clone https://github.com/JorgeS15/dewdash.git
 cd dewdash
 pip install -r requirements.txt
 python s24_web_dashboard.py
@@ -585,8 +607,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 For issues, questions, or suggestions:
-- Open an issue on GitHub
-- Email: support@example.com
+- Open an issue on [GitHub](https://github.com/JorgeS15/DewDash/issues)
 
 ## 🔗 Related Links
 
@@ -599,4 +620,4 @@ For issues, questions, or suggestions:
 
 **Made with ❤️ for industrial monitoring**
 
-**Version:** 1.0.16 | **Last Updated:** December 2025
+**Version:** 1.0.18 | **Last Updated:** December 2025

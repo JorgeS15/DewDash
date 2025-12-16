@@ -7,8 +7,10 @@ Updates at 10Hz (10 times per second)
 
 Lightning-fast dew point monitoring at 10Hz
 
-Version: 1.0.16
+Version: 1.0.18
 Changelog:
+  1.0.18 - Fixed browser auto-close to only trigger on Ctrl+C (not during normal operation)
+  1.0.17 - Browser tab automatically closes when terminal is closed
   1.0.16 - Updated webpage header: "DewDash" as title, "Monitor de Ponto de Orvalho S24" 
            as subtitle, removed thermometer icon
   1.0.15 - Moved version number to System Information panel at bottom
@@ -38,7 +40,7 @@ Changelog:
   1.0.0 - Initial release
 """
 
-__version__ = "1.0.16"
+__version__ = "1.0.18"
 
 from flask import Flask, render_template_string, jsonify
 from pymodbus.client import ModbusTcpClient
@@ -143,6 +145,8 @@ sensor_data = {
     'status': 'Initializing...',
     'raw_values': [0, 0, 0, 0, 0]
 }
+
+shutdown_flag = False  # Flag to signal browser shutdown
 
 # ==================== NETWORK CONFIGURATION ====================
 
@@ -692,6 +696,40 @@ HTML_TEMPLATE = '''
         updateData();
         setInterval(updateData, 100);  // 10Hz = 100ms interval
         
+        // Check for server shutdown every 2 seconds
+        setInterval(() => {
+            fetch('/shutdown')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'shutting_down') {
+                        // Display shutdown message
+                        document.body.innerHTML = `
+                            <div style="display: flex; align-items: center; justify-content: center; 
+                                        height: 100vh; background: #667eea; color: white; 
+                                        font-family: 'Segoe UI', sans-serif; text-align: center;">
+                                <div>
+                                    <h1 style="font-size: 3em; margin-bottom: 20px;">DewDash</h1>
+                                    <p style="font-size: 1.5em;">Server encerrado / Server stopped</p>
+                                    <p style="font-size: 1em; margin-top: 20px; opacity: 0.8;">
+                                        Esta janela pode ser fechada / This window can be closed
+                                    </p>
+                                </div>
+                            </div>
+                        `;
+                        // Try to close the window after 2 seconds
+                        setTimeout(() => {
+                            window.close();
+                        }, 2000);
+                    }
+                })
+                .catch(() => {
+                    // Server is down, try to close window
+                    setTimeout(() => {
+                        window.close();
+                    }, 1000);
+                });
+        }, 2000);  // Check every 2 seconds
+        
         // Update page timestamp
         setInterval(() => {
             const t = translations[currentLang];
@@ -821,6 +859,15 @@ def get_data():
     """API endpoint that returns current sensor data as JSON"""
     return jsonify(sensor_data)
 
+@app.route('/shutdown')
+def shutdown():
+    """Shutdown endpoint to notify browser"""
+    global shutdown_flag
+    if shutdown_flag:
+        return jsonify({'status': 'shutting_down'})
+    else:
+        return jsonify({'status': 'running'})
+
 # ==================== MAIN ====================
 
 def main():
@@ -934,7 +981,11 @@ def main():
         while True:
             time.sleep(1)
     except KeyboardInterrupt:
+        global shutdown_flag
+        shutdown_flag = True
         print("\n\nShutting down...")
+        print("Closing browser tabs...")
+        time.sleep(3)  # Wait for browser to detect shutdown
         sys.exit(0)
 
 if __name__ == "__main__":
