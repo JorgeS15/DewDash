@@ -8,7 +8,10 @@
 
 Real-time web dashboard for monitoring Banner S24 Dew Point Sensor via DXMR90-X1 Modbus gateway. Features automatic network configuration, bilingual interface (Portuguese/English), and ultra-fast 10Hz data updates.
 
-![DewDash Dashboard](https://via.placeholder.com/800x400?text=DewDash+Dashboard)
+
+# DewDash Dashboard
+
+<img width="1227" height="869" alt="msedge_d9JI7eRlHv" src="https://github.com/user-attachments/assets/6a14eca5-f2fa-426f-935d-86c79c9ce715" />
 
 ## ✨ Features
 
@@ -596,4 +599,4 @@ For issues, questions, or suggestions:
 
 **Made with ❤️ for industrial monitoring**
 
-**Version:** 1.0.16 | **Last Updated:** December 2024
+**Version:** 1.0.16 | **Last Updated:** December 2025
