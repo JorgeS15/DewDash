@@ -1,6 +1,6 @@
 # DewDash - S24 Dew Point Monitor
 
-[![Version](https://img.shields.io/badge/version-1.0.16-blue.svg)](https://github.com/yourusername/dewdash)
+[![Version](https://img.shields.io/badge/version-1.0.16-blue.svg)](https://github.com/JorgeS15/DewDash)
 [![Python](https://img.shields.io/badge/python-3.7+-green.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
